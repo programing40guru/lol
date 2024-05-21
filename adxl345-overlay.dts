@@ -1,0 +1,33 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "adxl,adxl345";
+
+    fragment@0 {
+        target = <&spi0>;
+        __overlay__ {
+            adxl345@0 {
+                compatible = "adxl,adxl345";
+                reg = <0>;
+            };
+        };
+    };
+};
+
+
+//--------------------------------right code edit ---------------------
+&spi0 {
+        pinctrl-names = "default";
+        pinctrl-0 = <&spi0_pins &spi0_cs_pins>;
+        cs-gpios = <&gpio 8 1>, <&gpio 7 1>;
+
+        adxl345: adxl345@0{
+                compatible = "adxl,adxl345";
+                spi-cpol;
+                spi-cpha;
+                reg = <0>;      /* CE0 */
+                spi-max-frequency = <5000000>;
+
+        };
+
